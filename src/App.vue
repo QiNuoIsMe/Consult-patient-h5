@@ -3,8 +3,28 @@ import { Button as VanButton } from 'vant'
 </script>
 
 <template>
-  <div>
-    App
-    <van-button typr="primary">按钮</van-button>
-  </div>
+  <div>App<van-button type="primary">按钮</van-button></div>
+  <div class="main">main</div>
+  <div class="footer">footer</div>
 </template>
+
+<style>
+.main {
+  color: var(--cp-primary);
+  background-color: var(--footer-color);
+}
+
+.footer {
+  color: var(--main-color);
+  background-color: var(--footer-color);
+}
+</style>
+<!-- .main{
+  color: var(--main-color);
+  background-color: var(--footer-color);
+}
+
+.footer{
+  color: var(--main-color);
+  background-color:var(--footer-color);
+} -->
