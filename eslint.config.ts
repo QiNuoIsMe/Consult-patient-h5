@@ -122,6 +122,9 @@ export default defineConfigWithVueTs({
   },
   rules: {
     ...skipFormatting.rules,
+
+    '@typescript-eslint/no-explicit-any': 'off', // 关闭了 any 检查
+
     'prettier/prettier': [
       'warn',
       {
