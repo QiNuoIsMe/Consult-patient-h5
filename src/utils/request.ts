@@ -1,5 +1,6 @@
+import router from '@/router'
 import { useUserStore } from '@/stores'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { showToast } from 'vant'
 
 const instance = axios.create({
@@ -34,8 +35,19 @@ instance.interceptors.response.use(
     //  4.摘取核心响应数据
     return res.data
   },
-  (err) => {
+  (err: AxiosError) => {
+    //设置err类型，不然其类型会是any
     //TOD0 5. 处理401错误
+    if (err.response?.status === 401) {
+      //清除用户信息
+      const store = useUserStore()
+      store.delUser()
+      //跳转登陆页面，携带当前访问页面的地址(包含参数的)
+      router.push({
+        path: '/login',
+        query: { returnUrl: router.currentRoute.value.fullPath }
+      })
+    }
     return Promise.reject(err)
   }
 )
