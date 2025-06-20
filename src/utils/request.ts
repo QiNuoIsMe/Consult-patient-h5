@@ -1,6 +1,6 @@
 import router from '@/router'
 import { useUserStore } from '@/stores'
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, type Method } from 'axios'
 import { showToast } from 'vant'
 
 const instance = axios.create({
@@ -32,7 +32,7 @@ instance.interceptors.response.use(
       return Promise.reject(res.data)
       //传入 code 将来catch的时候可以使用
     }
-    //  4.摘取核心响应数据
+    //  4.摘取核心响应数据——修改了响应结构
     return res.data
   },
   (err: AxiosError) => {
@@ -53,3 +53,25 @@ instance.interceptors.response.use(
 )
 
 export default instance
+//类型别名
+type Data<T> = {
+  code: number
+  message: string
+  data: T
+}
+
+//封装请求函数
+export const request = <T>(
+  url: string,
+  method: Method = 'GET',
+  submitData?: object //?表示可选，可以传这个参数，也可以不传
+) => {
+  //参数：地址，请求方式，提交的数据
+  //返回: promise
+  return instance.request<any, Data<T>>({
+    url,
+    method,
+    //[]表示动态参数，当请求方式为GET时是params，其他请求方式为data，参数值为submitData
+    [method.toUpperCase() === 'GET' ? 'params' : 'data']: submitData
+  })
+}
