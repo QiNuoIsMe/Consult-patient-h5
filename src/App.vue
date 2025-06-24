@@ -1,4 +1,15 @@
-<script setup lang="ts">
+<template>
+  <div class="app">
+    <!-- 路由出口——一级路由 -->
+    <router-view></router-view>
+  </div>
+</template>
+
+<script setup lang="ts"></script>
+
+<style lang="scss" scoped></style>
+
+<!-- <script setup lang="ts">
 import { Button as VanButton } from 'vant'
 import { useUserStore } from './stores'
 // import axios from './utils/request'
@@ -57,9 +68,8 @@ const login = () => {
     <van-button @click="getUser()">获取用户信息</van-button>
     <van-button @click="login">接口登录</van-button>
   </div>
-  <!-- <div class="main">main</div>
-  <div class="footer">footer</div> -->
-</template>
+
+</template> -->
 
 <!-- <style>
 .main {
